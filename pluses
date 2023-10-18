@@ -1,0 +1,15 @@
+def capturePulses():
+    global up,bk
+    while True:
+        t0 = up
+        while True:
+            t1 = up
+            if (t1 != t0) and (t0 == False):
+                print('1')
+                break
+            if (t0 == True) and (t1 == False):
+                break
+            if bk == True:
+                break
+        if bk == True:
+            break
