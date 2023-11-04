@@ -17,6 +17,7 @@ def startGetData():
 
 
 class GUI(object):
+
     def __init__(self, _plc) -> None:
         self.plc = _plc
         self.root = tk.Window(themename='journal')
@@ -39,6 +40,8 @@ class GUI(object):
         self.plc.disConnect()
         if self.plc.cStatus == 0:
             self.plcSlable.config(text='当前连接状态:已断开')
+
+
 # ---------------------------------------------------------------------------- #
 
     def __win(self):
@@ -56,16 +59,20 @@ class GUI(object):
         self.nb.pack(side='top', fill='both', padx=3, pady=3, expand=True)
 
     def __Lf(self):
-        self.lf1 = tk.LabelFrame(
-            self.f1, text='Connect', width=200, bootstyle='info')
+        self.lf1 = tk.LabelFrame(self.f1,
+                                 text='Connect',
+                                 width=200,
+                                 bootstyle='info')
         self.lf1.pack(side='left', fill='y', padx=3, pady=3)
         self.__Lf1()
         self.lf2 = tk.LabelFrame(self.f1, text='Data', bootstyle='info')
         self.lf2.pack(side='left', fill='both', padx=3, pady=3, expand=True)
 
     def __Lf1(self):
-        self.lf1_1 = tk.Frame(self.lf1,  # style='success',
-                              height=100,)
+        self.lf1_1 = tk.Frame(
+            self.lf1,  # style='success',
+            height=100,
+        )
         self.lf1_1.pack(side='top', fill='x')
         self.conLab = tk.Label(self.lf1_1, text='ip地址:',
                                font=(10)).pack(side='left', padx=3)
@@ -74,16 +81,15 @@ class GUI(object):
 
         self.plcSlable = tk.Label(self.lf1, text='当前连接状态:未知', font=(10))
         self.plcSlable.pack(side='top', pady=3)
-        tk.Button(self.lf1, text='连接Plc', width=26, command=self._plcCon).pack(
-            side='top', padx=2, pady=3)
-        tk.Button(self.lf1, text='断开Plc', width=26, command=self._plcDisCon).pack(
-            side='top', padx=2, pady=3)
+        tk.Button(self.lf1, text='连接Plc', width=26,
+                  command=self._plcCon).pack(side='top', padx=2, pady=3)
+        tk.Button(self.lf1, text='断开Plc', width=26,
+                  command=self._plcDisCon).pack(side='top', padx=2, pady=3)
         tk.Button(self.lf1, text='调试', width=10,
                   command=startGetData).pack(side='top')
 
     def __Lf2(self):
         pass
-
 
 if __name__ == '__main__':
     plc = _class.plc.Plc()
