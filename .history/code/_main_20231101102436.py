@@ -4,7 +4,7 @@ import ctypes as cp
 import _class.plc
 import multiprocessing as mp
 import threading
-
+import 
 
 def _getData():
     global plc
@@ -47,6 +47,8 @@ class GUI(object):
         self.root.title('Tool')
 
     def __noot(self):
+        style1 = tk.Style()
+        style1.configure('NB', tabposition='se')
         self.nb = tk.Notebook(self.root, bootstyle='primary', style='NB')
         self.f1 = tk.Frame(self.nb)
         self.f2 = tk.Frame(self.nb)

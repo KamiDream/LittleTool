@@ -39,6 +39,8 @@ class GUI(object):
         self.plc.disConnect()
         if self.plc.cStatus == 0:
             self.plcSlable.config(text='当前连接状态:已断开')
+
+
 # ---------------------------------------------------------------------------- #
 
     def __win(self):
@@ -47,7 +49,7 @@ class GUI(object):
         self.root.title('Tool')
 
     def __noot(self):
-        self.nb = tk.Notebook(self.root, bootstyle='primary', style='NB')
+        self.nb = tk.Notebook(self.root, bootstyle='primary')
         self.f1 = tk.Frame(self.nb)
         self.f2 = tk.Frame(self.nb)
         self.__Lf()
@@ -86,5 +88,6 @@ class GUI(object):
 
 
 if __name__ == '__main__':
+    global 
     plc = _class.plc.Plc()
     main = GUI(plc)

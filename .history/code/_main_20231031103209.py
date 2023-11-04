@@ -2,23 +2,10 @@ import ttkbootstrap as tk
 from tkinter import messagebox
 import ctypes as cp
 import _class.plc
-import multiprocessing as mp
-import threading
-
-
-def _getData():
-    global plc
-    data = plc._getDrawData()
-    print(data)
-
-
-def startGetData():
-    mp.Process(target=_getData).start()
-
 
 class GUI(object):
-    def __init__(self, _plc) -> None:
-        self.plc = _plc
+    def __init__(self) -> None:
+        self.plc = _class.plc.Plc()
         self.root = tk.Window(themename='journal')
         screenWidth = self.root.winfo_screenwidth()  # 获取显示区域的宽度
         screenHeight = self.root.winfo_screenheight()
@@ -28,26 +15,16 @@ class GUI(object):
         self.__noot()
         self.root.mainloop()
         pass
-# ---------------------------------------------------------------------------- #
-
     def _plcCon(self):
         self.plc.connect()
-        if self.plc.cStatus == 1:
-            self.plcSlable.config(text='当前连接状态:已连接')
-
-    def _plcDisCon(self):
-        self.plc.disConnect()
-        if self.plc.cStatus == 0:
-            self.plcSlable.config(text='当前连接状态:已断开')
-# ---------------------------------------------------------------------------- #
-
+        
     def __win(self):
         self.root.geometry('%dx%d+%d+%d' % (1000, 618, self.left, self.top))
         self.root.resizable(0, 0)
         self.root.title('Tool')
 
     def __noot(self):
-        self.nb = tk.Notebook(self.root, bootstyle='primary', style='NB')
+        self.nb = tk.Notebook(self.root, bootstyle='primary')
         self.f1 = tk.Frame(self.nb)
         self.f2 = tk.Frame(self.nb)
         self.__Lf()
@@ -69,22 +46,16 @@ class GUI(object):
         self.lf1_1.pack(side='top', fill='x')
         self.conLab = tk.Label(self.lf1_1, text='ip地址:',
                                font=(10)).pack(side='left', padx=3)
-        self.ipEntry = tk.Entry(self.lf1_1, font=(10), width=16)
-        self.ipEntry.pack(side='left', padx=3)
-
+        tk.Entry(self.lf1_1, font=(10), width=16).pack(side='left', padx=3)
         self.plcSlable = tk.Label(self.lf1, text='当前连接状态:未知', font=(10))
         self.plcSlable.pack(side='top', pady=3)
-        tk.Button(self.lf1, text='连接Plc', width=26, command=self._plcCon).pack(
+        tk.Button(self.lf1, text='连接Plc', width=26).pack(
             side='top', padx=2, pady=3)
-        tk.Button(self.lf1, text='断开Plc', width=26, command=self._plcDisCon).pack(
+        tk.Button(self.lf1, text='断开Plc', width=26).pack(
             side='top', padx=2, pady=3)
-        tk.Button(self.lf1, text='调试', width=10,
-                  command=startGetData).pack(side='top')
 
     def __Lf2(self):
         pass
 
 
-if __name__ == '__main__':
-    plc = _class.plc.Plc()
-    main = GUI(plc)
+GUI()

@@ -6,16 +6,6 @@ import multiprocessing as mp
 import threading
 
 
-def _getData():
-    global plc
-    data = plc._getDrawData()
-    print(data)
-
-
-def startGetData():
-    mp.Process(target=_getData).start()
-
-
 class GUI(object):
     def __init__(self, _plc) -> None:
         self.plc = _plc
@@ -39,6 +29,8 @@ class GUI(object):
         self.plc.disConnect()
         if self.plc.cStatus == 0:
             self.plcSlable.config(text='当前连接状态:已断开')
+
+
 # ---------------------------------------------------------------------------- #
 
     def __win(self):
@@ -47,7 +39,7 @@ class GUI(object):
         self.root.title('Tool')
 
     def __noot(self):
-        self.nb = tk.Notebook(self.root, bootstyle='primary', style='NB')
+        self.nb = tk.Notebook(self.root, bootstyle='primary')
         self.f1 = tk.Frame(self.nb)
         self.f2 = tk.Frame(self.nb)
         self.__Lf()
@@ -79,7 +71,7 @@ class GUI(object):
         tk.Button(self.lf1, text='断开Plc', width=26, command=self._plcDisCon).pack(
             side='top', padx=2, pady=3)
         tk.Button(self.lf1, text='调试', width=10,
-                  command=startGetData).pack(side='top')
+                  command=self.startGetData).pack(side='top')
 
     def __Lf2(self):
         pass

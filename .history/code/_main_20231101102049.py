@@ -42,12 +42,14 @@ class GUI(object):
 # ---------------------------------------------------------------------------- #
 
     def __win(self):
+        style = tk.Style()
+        style.configure('NB',)
         self.root.geometry('%dx%d+%d+%d' % (1000, 618, self.left, self.top))
         self.root.resizable(0, 0)
         self.root.title('Tool')
 
     def __noot(self):
-        self.nb = tk.Notebook(self.root, bootstyle='primary', style='NB')
+        self.nb = tk.Notebook(self.root, bootstyle='primary',style=)
         self.f1 = tk.Frame(self.nb)
         self.f2 = tk.Frame(self.nb)
         self.__Lf()
