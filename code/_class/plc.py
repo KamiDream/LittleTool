@@ -1,4 +1,5 @@
 import snap7
+from snap7.exceptions import Snap7Exception
 # tag:PLC基础功能
 
 
@@ -9,10 +10,14 @@ class Plc():
         pass
     # ---------------------------------------------------------------------------- #
 
-    def connect(self):  # 尝试连接
+    def connect(self,_ip):  # 尝试连接
         try:
-            self.po.connect('192.168.1.30', 0, 1)
-        except BaseException:
+            self.po.connect(str(_ip), 0, 1)
+        except Snap7Exception as e:
+            print(str(e))
+            pass
+        except RuntimeError as r:
+            print(str(r))
             pass
         if self.po.get_connected() is True:  # 连接反馈
             self.cStatus = 1
@@ -43,6 +48,7 @@ class Plc():
             data = self.po.db_read(1, 0, 546)
             power = snap7.util.get_uint(data, 538)
             hold = snap7.util.get_uint(data, 4)
+            snap7.util.get
             return power, hold
         finally:
             pass
